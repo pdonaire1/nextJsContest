@@ -46,6 +46,7 @@ export class MunicipalityService extends HttpClient {
   }
 
   async hostingProgress(hostname) {
+    console.log("hostname:", hostname)
     const filter = {
       where: { host_name: { like: `%${hostname}%` } },
       fields: ['id', 'name'],

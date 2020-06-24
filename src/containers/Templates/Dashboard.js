@@ -35,7 +35,8 @@ class Dashboard extends React.Component {
   componentDidUpdate(prevProps) {
     const { getFeatures, getDepartments, municipalityId } = this.props;
     const { changed } = treeChanges(prevProps, this.props);
-    if (changed('municipalityId')) {
+    console.log("this.props:", this.props.municipalityId !== "");
+    if (changed('municipalityId') && this.props.municipalityId !== "") {
       console.log('Obteniendo datos')
       getFeatures(municipalityId);
       getDepartments(municipalityId);
@@ -48,7 +49,7 @@ class Dashboard extends React.Component {
       initialOpen,
       loadTransition,
       municipalityId,
-      getFeatures,
+      //getFeatures,
       getDepartments,
       setMunicipality
       // authenticate
@@ -173,7 +174,8 @@ const mapDispatchToProps = (dispatch) => ({
   toggleDrawer: () => dispatch(toggleAction),
   initialOpen: bindActionCreators(openAction, dispatch),
   loadTransition: bindActionCreators(playTransitionAction, dispatch),
-  getFeatures: bindActionCreators(getFeaturesAction, dispatch),
+  //getFeatures: bindActionCreators(getFeaturesAction, dispatch),
+  getFeatures: (municipalityId) => dispatch(getFeaturesAction(municipalityId)),
   getDepartments: bindActionCreators(getDepartmentsAction, dispatch),
   setMunicipality: bindActionCreators(setMunicipalityAction, dispatch)
   // authenticate: bindActionCreators(isAuthenticate, dispatch)

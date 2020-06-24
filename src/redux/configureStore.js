@@ -3,6 +3,7 @@ import { fromJS } from 'immutable';
 import { applyMiddleware, compose, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
+import logger from 'redux-logger'
 import createReducer from './reducers';
 
 export default function configureStore(initialState = {}, options) {
@@ -31,7 +32,7 @@ export default function configureStore(initialState = {}, options) {
   // Create the store with two middlewares
   // 1. sagaMiddleware: Makes redux-sagas work
   // 2. routerMiddleware: Syncs the location/URL path to the state
-  const middlewares = [sagaMiddleware, routerMiddleware];
+  const middlewares = [sagaMiddleware, routerMiddleware, logger];
 
   const store = createStore(
     createReducer(),
