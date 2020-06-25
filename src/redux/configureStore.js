@@ -34,7 +34,10 @@ export default function configureStore(initialState = {}, options) {
   // Create the store with two middlewares
   // 1. sagaMiddleware: Makes redux-sagas work
   // 2. routerMiddleware: Syncs the location/URL path to the state
-  const middlewares = [sagaMiddleware, routerMiddleware, logger];
+  let middlewares = [sagaMiddleware, routerMiddleware];
+  if (process.env.NODE_ENV !== 'production'){
+    middlewares.push(logger);
+  }
 
   const store = createStore(
     createReducer(),
