@@ -16,9 +16,9 @@ class GazetteSlider extends Component {
   };
 
   componentDidMount() {
-    const { getLastLaws, municipalityId } = this.props;
+    const { getLastLaws, municipalityId, lastLaws } = this.props;
     const { loader } = this.state;
-    getLastLaws(municipalityId);
+    if (municipalityId && !lastLaws.size) getLastLaws(municipalityId);
     this.setState({ loader: !loader });
   }
 
