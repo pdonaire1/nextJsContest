@@ -21,8 +21,13 @@ export default function configureStore(initialState = {}, options) {
     if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
       composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({});
     } else {
-      import { composeWithDevTools } from 'redux-devtools-extension';
-      composeEnhancers = composeWithDevTools;
+      try {
+        import { composeWithDevTools } from 'redux-devtools-extension';
+        composeEnhancers = composeWithDevTools;
+      } catch {
+        console.log("ERROR IN composeEnhancers");
+        composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({});
+      }
     }
   }
 
