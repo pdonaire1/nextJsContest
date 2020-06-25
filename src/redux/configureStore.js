@@ -1,7 +1,6 @@
 import { createRouterMiddleware, initialRouterState } from 'connected-next-router';
 import { fromJS } from 'immutable';
 import { applyMiddleware, compose, createStore } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger'
 import createReducer from './reducers';
@@ -22,6 +21,7 @@ export default function configureStore(initialState = {}, options) {
     if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
       composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({});
     } else {
+      import { composeWithDevTools } from 'redux-devtools-extension';
       composeEnhancers = composeWithDevTools;
     }
   }
