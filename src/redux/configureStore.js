@@ -5,6 +5,8 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger'
 import createReducer from './reducers';
+import { loadState, saveState } from './localStorage';
+const persistedState = loadState();
 
 export default function configureStore(initialState = {}, options) {
   let composeEnhancers = compose;
@@ -36,9 +38,13 @@ export default function configureStore(initialState = {}, options) {
 
   const store = createStore(
     createReducer(),
-    fromJS(initialState),
+    fromJS(persistedState || initialState),
     bindMiddleware(middlewares));
-
+  store.subscribe(() => {
+    saveState({
+      state: store.getState()
+    });
+  });
   /**
    * next-redux-saga depends on `sagaTask` being attached to the store during `getInitialProps`.
    * It is used to await the rootSaga task before sending results to the client.

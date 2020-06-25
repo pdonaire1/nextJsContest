@@ -35,8 +35,8 @@ class Dashboard extends React.Component {
   componentDidUpdate(prevProps) {
     const { getFeatures, getDepartments, municipalityId } = this.props;
     const { changed } = treeChanges(prevProps, this.props);
-    console.log("this.props:", this.props.municipalityId !== "");
-    if (changed('municipalityId') && this.props.municipalityId !== "") {
+    //console.log("::::::::::", this.props)
+    if (changed('municipalityId')) {
       console.log('Obteniendo datos')
       getFeatures(municipalityId);
       getDepartments(municipalityId);
@@ -54,8 +54,7 @@ class Dashboard extends React.Component {
       setMunicipality
       // authenticate
     } = this.props;
-
-    setMunicipality()
+    if (!this.props.municipalityId) setMunicipality();
     // authenticate();
     // Set expanded sidebar menu
     const currentPath = router.pathname;
@@ -177,7 +176,8 @@ const mapDispatchToProps = (dispatch) => ({
   //getFeatures: bindActionCreators(getFeaturesAction, dispatch),
   getFeatures: (municipalityId) => dispatch(getFeaturesAction(municipalityId)),
   getDepartments: bindActionCreators(getDepartmentsAction, dispatch),
-  setMunicipality: bindActionCreators(setMunicipalityAction, dispatch)
+  //setMunicipality: bindActionCreators(setMunicipalityAction, dispatch)
+  setMunicipality: () => dispatch(setMunicipalityAction())
   // authenticate: bindActionCreators(isAuthenticate, dispatch)
 });
 

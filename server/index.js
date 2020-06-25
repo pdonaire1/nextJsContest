@@ -6,7 +6,7 @@ const { parse } = require("url");
 const express = require("express");
 const { join } = require("path");
 const next = require("next");
-
+require('dotenv').config()
 const routes = require("./router.module");
 
 const PORT = process.env.PORT ? process.env.PORT : 7000;
