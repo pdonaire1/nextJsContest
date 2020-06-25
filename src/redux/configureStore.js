@@ -5,9 +5,7 @@ import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger'
 import createReducer from './reducers';
 import { loadState, saveState } from './localStorage';
-if (process.env.NODE_ENV !== 'production'){
-  import { composeWithDevTools } from 'redux-devtools-extension';
-}
+import { composeWithDevTools } from 'redux-devtools-extension';
 const persistedState = loadState();
 
 export default function configureStore(initialState = {}, options) {
