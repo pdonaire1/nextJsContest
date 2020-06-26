@@ -76,7 +76,7 @@ export class MunicipalityService extends HttpClient {
     const response = await this.find(filter);
 
     const { municipalityFileStorages, ...municipality } = response.shift();
-
+    console.log("response: ", response)
     if (municipalityFileStorages !== undefined) {
       const image = municipalityFileStorages.shift().fileStorage;
       Object.assign(municipality, {
