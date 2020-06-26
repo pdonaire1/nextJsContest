@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { getLastNewsAction } from '@actions/MunicipalityDataActions';
+import treeChanges from 'tree-changes';
 
 class SliderLanding extends Component {
   state = {
@@ -26,7 +27,9 @@ class SliderLanding extends Component {
   componentWillUpdate(newProps) {
     const { municipalityId, getLastNews } = newProps;
     const { loader } = this.state;
-    if (municipalityId !== '' && loader) {
+    const { changed } = treeChanges(prevProps, this.props);
+    if (municipalityId && loader && changed('municipalityId')) {
+      console.log("getLastLaws slider")
       getLastNews(municipalityId);
       // eslint-disable-next-line
       this.setState({ loader: false });
@@ -93,7 +96,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getLastNews: bindActionCreators(getLastNewsAction, dispatch)
+  getLastNews: (municipalityId)=> dispatch(getLastNewsAction(municipalityId))
 });
 
 const withConnect = connect(

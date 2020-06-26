@@ -35,7 +35,7 @@ class Dashboard extends React.Component {
   componentDidUpdate(prevProps) {
     const { getFeatures, getDepartments, municipalityId } = this.props;
     const { changed } = treeChanges(prevProps, this.props);
-    if (changed('municipalityId')) {
+    if (changed('municipalityId') && municipalityId) {
       console.log('Obteniendo datos')
       getFeatures(municipalityId);
       getDepartments(municipalityId);

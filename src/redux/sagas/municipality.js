@@ -15,13 +15,10 @@ let cFeatures = 0;
 let cDepartments = 0;
 
 function* setMunicipality() {
-  //console.log(1111111111)
   const municipality = yield call(
     [MunicipalityApi, 'hostingProgress'],
     window.location.hostname
   );
-  //const municipality = yield MunicipalityApi.hostingProgress(window.location.hostname);
-  //console.log("AAAAAA:", municipality)
   yield put({ type: MUNICIPALITY_DATA, value: municipality });
 }
 

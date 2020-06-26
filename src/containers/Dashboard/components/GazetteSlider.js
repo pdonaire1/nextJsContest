@@ -26,7 +26,8 @@ class GazetteSlider extends Component {
     const { getLastLaws, municipalityId } = this.props;
     const { loader } = this.state;
     const { changed } = treeChanges(prevProps, this.props);
-    if (changed('municipalityId')) {
+    if (changed('municipalityId') && municipalityId) {
+      console.log("getLastLaws")
       getLastLaws(municipalityId);
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ loader: !loader });
@@ -112,7 +113,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getLastLaws: bindActionCreators(getLastLawsAction, dispatch)
+  getLastLaws: (municipalityId) => dispatch(getLastLawsAction(municipalityId))
 });
 
 const withConnect = connect(
